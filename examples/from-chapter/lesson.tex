@@ -1,0 +1,168 @@
+\documentclass[12pt,a4paper,UTF8,fontset=none]{ctexart}
+\usepackage{course-style}
+
+\renewcommand{\CourseSubject}{高等数学}
+\renewcommand{\CourseTopic}{导数的定义与基本应用}
+\renewcommand{\CourseEyebrow}{数学基础重建・高等数学章节课程}
+\renewcommand{\CourseTitleTop}{从第一性原理学会}
+\renewcommand{\CourseTitleBottom}{导数到底是什么}
+\renewcommand{\CourseSubtitle}{从平均变化率出发，亲自推导瞬时变化率}
+\renewcommand{\CourseRouteA}{函数与\\斜率}
+\renewcommand{\CourseRouteB}{极限与\\导数定义}
+\renewcommand{\CourseRouteC}{推导与\\应用练习}
+\renewcommand{\CoursePromise}{\textbf{三项承诺：}不靠死记求导公式；讲清瞬时速度为什么需要极限；每个计算都能追溯到导数定义。}
+\renewcommand{\CourseFooter}{章节驱动示范・基础定义・完整推导・分层自测}
+\renewcommand{\CourseEdition}{示范讲义 · 2026 年 10 月}
+
+\begin{document}
+\CourseCover
+\section*{先说读法：为什么要学导数？}
+想象你骑车走了 $100$ 米，用时 $20$ 秒。用总路程除总时间算出的 $5$ 米/秒叫\textbf{平均速度}。但你在第 $10$ 秒那一刻的速度可能不是 $5$。那么“某一瞬间”的速度究竟如何定义？
+
+\begin{takeawaybox}[本章学完的三个验收目标]
+你应该能：（1）解释平均变化率与瞬时变化率的差别；（2）从极限定义推导 $x^2$、常数函数和一次函数的导数；（3）判断尖点处是否可导，并独立解决一道新函数的导数定义题。
+\end{takeawaybox}
+
+\noindent\textbf{章节边界：}只讲导数的定义、几何与运动意义、基本求导和最初的可导性判断。链式法则、高阶导数与微分方程不属于这个示范小课。
+\tableofcontents
+\clearpage
+
+\section{地基：函数与变化率}
+\subsection{函数不是神秘符号}
+函数 $y=f(x)$ 的意思是：每个允许的输入 $x$ 对应一个确定输出 $y$。例如 $f(x)=x^2$，输入 $2$ 得到 $4$；输入 $3$ 得到 $9$。
+
+我们最先能算的是\textbf{两个输入之间平均变了多少}。对于 $x_1\ne x_2$，平均变化率定义为
+\[
+\frac{f(x_2)-f(x_1)}{x_2-x_1}.
+\]
+分子是输出变化量，分母是输入变化量。这不是一条要背的公式，而是把“变化多少”与“走过的区间长度”做比较。
+
+\subsection{斜率其实是同一个比}
+在坐标平面上，从点 $(x_1,f(x_1))$ 连到 $(x_2,f(x_2))$ 的直线叫割线，它的斜率同样是上述差商。因此“平均速度”和“割线斜率”可以用同一种数学语言描述。
+
+\begin{trybox}
+设 $f(x)=x^2$，从 $x=2$ 到 $x=3$ 的平均变化率是多少？如果只走到 $2.1$，变化率又是多少？
+\end{trybox}
+
+答案：$(9-4)/(3-2)=5$，而 $(2.1^2-4)/(2.1-2)=4.1$。区间缩短后，数字从 $5$ 向 $4$ 靠近。
+
+\section{关键一步：为什么极限能表达“瞬间”？}
+\subsection{我们不是让两点真的重合}
+把第二个输入写成 $x+h$，其中 $h\ne0$。两点的平均变化率就是
+\[
+\frac{f(x+h)-f(x)}{h}.
+\]
+我们想知道区间趋近于零时，这个比是否趋向一个固定数。注意 $h$ 一直不等于零；因为除以零没有定义。我们研究的是\textbf{逼近时的趋势}，不是把 $h=0$ 直接代入。
+
+\begin{whybox}[从平均到瞬时：为什么是极限？]
+平均变化率只描述一段时间；要得到某一时刻，缩小这段时间。如果结果逐渐稳定，我们把那个稳定值称为瞬时变化率。极限不是额外的魔法，而是给“无限逼近却不取零”一个精确语言。
+\end{whybox}
+
+\subsection{导数定义}
+如果极限存在且有限，定义函数在 $x$ 处的导数
+\[
+\boxed{f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}}.
+\]
+这个式子里有四件事：原函数 $f$，考察的位置 $x$，小变化 $h$，以及变化率的极限。\textbf{有导数}意味着左右趋近给出同一个有限值。
+
+\begin{trapbox}
+不能先把 $h$ 设成 $0$，算出 $0/0$ 后宣布导数不存在。$0/0$ 只表示直接代入不可行；下一步应该代数化简后再求极限。
+\end{trapbox}
+
+\section{例题：自己推出三个求导结果}
+\subsection{例题 1：为什么 $x^2$ 的导数是 $2x$？}
+\begin{questionbox}[章节例题 1]
+不背任何求导公式，只从定义出发，求 $f(x)=x^2$ 的导数。
+\end{questionbox}
+
+\stephead{第 1 步：先写差商。}
+\[
+\frac{f(x+h)-f(x)}h=\frac{(x+h)^2-x^2}{h}.
+\]
+\stephead{第 2 步：先展开消去零因子。}
+\[
+\frac{x^2+2xh+h^2-x^2}{h}=2x+h\qquad(h\ne0).
+\]
+\stephead{第 3 步：最后才取极限。}
+\[
+f'(x)=\lim_{h\to0}(2x+h)=\boxed{2x}.
+\]
+这一步证明的不只是一个公式，还告诉我们：位置 $x$ 不同，瞬时变化率也不同。$x=2$ 时斜率是 $4$，$x=3$ 时是 $6$。
+
+\begin{trybox}
+按同样顺序自己推导 $f(x)=x^3$ 的导数。提示：先展开 $(x+h)^3$，记住 $h\ne0$ 时才可以约去 $h$。
+\end{trybox}
+
+\subsection{例题 2：常数和一次函数为什么容易？}
+\begin{questionbox}[章节例题 2]
+证明：$f(x)=C$ 的导数为 $0$；$f(x)=ax+b$ 的导数为 $a$。
+\end{questionbox}
+
+常数不随输入改变，差商当然为 $0$：
+\[
+\frac{C-C}{h}=0\quad\Longrightarrow\quad f'(x)=0.
+\]
+一次函数每向右走 $h$，输出恰好增加 $ah$：
+\[
+\frac{a(x+h)+b-(ax+b)}h=\frac{ah}{h}=a\quad(h\ne0).
+\]
+极限仍为 $a$。所以\textbf{一次函数斜率处处不变；抛物线的切线斜率随位置而变}。\proofdone
+
+\subsection{例题 3：绝对值为什么在原点不可导？}
+\begin{questionbox}[章节例题 3]
+判断 $f(x)=|x|$ 在 $x=0$ 处有没有导数。
+\end{questionbox}
+
+根据定义，差商为
+\[
+\frac{|0+h|-|0|}{h}=\frac{|h|}{h}=
+\begin{cases}1,&h>0,\\-1,&h<0.\end{cases}
+\]
+从右边逼近时趋于 $1$，从左边逼近时趋于 $-1$。左右极限不同，因此整体极限不存在，$|x|$ 在 $0$ 处\textbf{不可导}。\proofdone
+
+\begin{takeawaybox}
+为什么“尖点”不光是图像不好看？导数是极限，而极限存在必须左右一致。尖点左右斜率不一致，所以无法定义唯一的切线斜率。
+\end{takeawaybox}
+
+\section{最初的应用：用导数读懂运动}
+如果位移随时间的函数是 $s(t)=t^2$（单位分别为米、秒），那么
+\[
+v(t)=s'(t)=2t.
+\]
+这告诉我们第 $3$ 秒的瞬时速度为 $6$ 米/秒。对比从 $t=2$ 到 $t=3$ 的平均速度 $5$ 米/秒，就能体会平均与瞬时的差异。
+
+\begin{whybox}
+为什么这里可以把导数读作速度？因为速度本质上就是位移对时间的\textbf{瞬时变化率}。这里不是凑巧选中了导数公式，而是速度的定义本来就要求极限。
+\end{whybox}
+
+\section{分层练习：请在纸上完成}
+\begin{enumerate}[label=\textbf{A\arabic*.}]
+\item 对 $f(x)=3x+1$，从 $x=0$ 到 $x=2$ 的平均变化率是多少？
+\item 解释为什么求导时 $h\to0$ 不等于 $h=0$。
+\end{enumerate}
+\begin{enumerate}[label=\textbf{B\arabic*.}]
+\item 由定义证明 $f(x)=x^3$ 的导数为 $3x^2$。
+\item 从定义出发，判断 $f(x)=|x-2|$ 在 $x=2$ 是否可导。
+\end{enumerate}
+\begin{enumerate}[label=\textbf{C\arabic*.}]
+\item 若 $f(x)=x^2+3x$，不用现成的求导法则，直接从差商计算 $f'(x)$。
+\item 函数在某点连续就一定可导吗？给出本章出现过的反例。
+\end{enumerate}
+
+\section{完整答案与一页回顾}
+\stephead{A1.} 差商 $[f(2)-f(0)]/(2-0)=(7-1)/2=3$。
+
+\stephead{A2.} $h$ 是不为零的间距，才能定义差商；极限考察 $h$ 无限逼近零时比值是否稳定。两者不相等。
+
+\stephead{B1.} 差商为 $[(x+h)^3-x^3]/h=3x^2+3xh+h^2$，取 $h\to0$ 得 $3x^2$。
+
+\stephead{B2.} $[(|2+h|-|2|)]/h=|h|/h$，左右极限不同，所以不可导。
+
+\stephead{C1.} $[(x+h)^2+3(x+h)-(x^2+3x)]/h=2x+h+3$，极限为 $2x+3$。
+
+\stephead{C2.} 不一定。$f(x)=|x|$ 在 $0$ 处连续，但左右导数为 $-1$ 与 $1$，故不可导。
+
+\begin{takeawaybox}[闭上书复述]
+平均变化率是两点的割线斜率；导数是差商极限；$h\to0$ 不是把分母置零；左右极限不同则不可导。能否从这个定义出发自己算出 $x^2$ 和 $|x|$ 的例子？
+\end{takeawaybox}
+\end{document}

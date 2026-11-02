@@ -1,0 +1,21 @@
+# LaTeX build cache
+*.aux
+*.log
+*.toc
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.xdv
+*.nav
+*.snm
+*.vrb
+# Editor / Python
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+# Generated transient QA previews
+**/preview/
+**/build/
+!assets/

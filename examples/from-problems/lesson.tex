@@ -1,0 +1,300 @@
+\documentclass[12pt,a4paper,UTF8,fontset=none]{ctexart}
+\usepackage{course-style}
+
+\renewcommand{\CourseSubject}{高等代数}
+\renewcommand{\CourseTopic}{不可约性与共轭根}
+\renewcommand{\CourseEyebrow}{数学基础重建・高等代数专题讲义}
+\renewcommand{\CourseTitleTop}{从第一性原理学会}
+\renewcommand{\CourseTitleBottom}{多项式不可约}
+\renewcommand{\CourseSubtitle}{从“完全不会”到能独立写出五道证明题}
+\renewcommand{\CourseRouteA}{整数、整除\\有理与无理}
+\renewcommand{\CourseRouteB}{多项式、根\\因式与次数}
+\renewcommand{\CourseRouteC}{不可约与\\证明工具}
+\renewcommand{\CoursePromise}{\textbf{这份讲义的三项承诺：}不把定理当魔法；每一步解释“为什么”；例题后有能独立练的变式和详解。无需先学数域扩张。}
+\renewcommand{\CourseFooter}{5 道黑板例题・基础推导・错误辨析・分层自测}
+\renewcommand{\CourseEdition}{示范讲义 · 2026 年 10 月}
+
+\begin{document}
+\CourseCover
+\section*{先说读法：怎样真正学会这节课？}
+高等代数证明题最难的不是计算，而是\textbf{不知道为什么要那样做}。这本讲义按照“先看见现象、再建立定义、然后推导工具、最后解题迁移”的顺序组织。
+
+\begin{takeawaybox}[你学完后应该能做到]
+\begin{enumerate}[label=(\arabic*)]
+\item 分清\emph{有理系数}和\emph{有理根}，解释“在哪个数域不可约”。
+\item 说明艾森斯坦判别法为何有效、何时该构造倒序多项式。
+\item 亲自求出根式的有理系数多项式，知道“有根”和“最小多项式”不同。
+\item 用整系数多项式在整数点的特殊值制造次数矛盾。
+\end{enumerate}
+\end{takeawaybox}
+
+\noindent\textbf{三遍学法：}第一遍读基础，只回答“为什么”；第二遍读五题，到暂停框就遮住后文尝试；第三遍只做最后练习和总结，不看答案。
+\setcounter{tocdepth}{1}% Compact TOC for a short course; longer courses can set 2.
+\tableofcontents
+\clearpage
+
+\section{地基：从数字到多项式}
+\subsection{有理数到底是什么？}
+整数记为 $\mathbb Z$。能写成 $a/b$（其中 $a,b\in\mathbb Z$，$b\ne0$）的数叫\textbf{有理数}，集合记为 $\mathbb Q$。$\sqrt2$ 不能写成这样的比，故是无理数；而 $\sqrt4=2$ 仍是有理数。
+
+一元多项式 $f(x)=a_nx^n+\cdots+a_1x+a_0$ 如果 $a_i\in\mathbb Q$，就记为 $f\in\mathbb Q[x]$。这句话只限定\textbf{系数}，没有限定代进去的 $x$ 是什么数。
+
+\subsection{整除、素数和一次反证}
+$p\mid a$ 的意思是 $a=pk$（某个整数 $k$），例如 $3\mid12$。素数 $p$ 只有 $1,p$ 两个正因子，且满足：若 $p\mid ab$，则 $p\mid a$ 或 $p\mid b$。
+
+证明 $\sqrt2$ 无理时，反设 $\sqrt2=u/v$ 为最简分数，得到 $u^2=2v^2$，所以 $u$ 偶；写作 $u=2k$，可推得 $v$ 偶，这与最简矛盾。\textbf{这是一种模板：}先假设能写成有理数，再利用整数的整除性推出不可能。
+
+\begin{trybox}
+$5\mid20$ 吗？$25\mid20$ 吗？$\sqrt9$ 是无理数吗？先在纸上写答案。
+\end{trybox}
+
+\section{多项式的因式、根与不可约}
+\subsection{为什么“不可约”是有范围的？}
+在整数中 $12=3\cdot4$ 可分，而素数 $7$ 不能。多项式同理：
+\[
+x^2-1=(x-1)(x+1).
+\]
+若一个次数至少为 $1$ 的 $f\in\mathbb Q[x]$ \textbf{不能}分解为两个正次数有理系数多项式之积，称 $f$ 在 $\mathbb Q$ 上不可约。
+
+例如 $x^2-2$ 在有理数范围不可约，在实数范围可分解为 $(x-\sqrt2)(x+\sqrt2)$。\textbf{不可约不是没有因式，而是没有允许范围内的非平凡因式。}
+
+\subsection{从余式定理推到根与因式}
+用 $x-a$ 去除 $f(x)$，余数是一个常数 $r$，所以 $f(x)=(x-a)q(x)+r$。令 $x=a$，得 $r=f(a)$。因此
+\[
+\boxed{f(a)=0\iff (x-a)\mid f(x)}.
+\]
+这说明为什么解方程和分解多项式互相联系。再记住：一个\textbf{非零}的 $m$ 次多项式至多有 $m$ 个不同根，因为每找到一个不同根，就能分出一个一次因式。
+
+\begin{whybox}
+为什么“非零”不能删？零多项式对所有数都等于零，根是无限多的；对它说“根数不超过次数”没有意义。
+\end{whybox}
+
+\subsection{根数、次数和“没有有理根”}
+二次或三次多项式若在 $\mathbb Q$ 上可约，就必含一次因式，故存在有理根。\textbf{对四次及以上不成立：}
+\[
+(x^2+1)(x^2+2)=x^4+3x^2+2
+\]
+在 $\mathbb Q$ 上可约，但没有有理根。
+
+\section{三个关键工具：从条件推到方法}
+\subsection{为什么首一整系数多项式特别好用？}
+\textbf{高斯引理（本节使用的形式）：}首一整系数多项式在 $\mathbb Q[x]$ 中若可约，可在 $\mathbb Z[x]$ 中分解为两个首一正次数整系数多项式。直观原因是有理系数的分母可以清掉；将多项式“没有共同素因子”的性质与素数除积性质结合，可证明清分母不会引入多余的公共因子。
+
+这个工具的目的：\textbf{把允许分数的因式分解，拉回整数，利用整除和 $\pm1$。}详细证明可作为深入练习，不应误把“乘上分母就结束了”当严谨证明。
+
+\subsection{艾森斯坦为什么能逼出矛盾？}
+设 $F(x)=c_nx^n+\cdots+c_0\in\mathbb Z[x]$。若存在素数 $p$，满足
+\[
+ p\nmid c_n,\qquad p\mid c_i\ (0\le i<n),\qquad p^2\nmid c_0,
+\]
+则 $F$ 在 $\mathbb Q$ 上不可约。
+
+\begin{whybox}[推导的核心：假如它居然能分解]
+反设 $F=GH$，取首项和常数项分别为 $u_r,v_s$ 与 $u_0,v_0$。因为 $p\mid c_0=u_0v_0$，所以至少一个常数项被 $p$ 整除；又因为 $p^2\nmid c_0$，恰好一个被 $p$ 整除。设 $p\mid u_0$，而 $p\nmid v_0$。\par
+若 $G$ 的正次项系数并非全被 $p$ 整除，取最小 $k\ge1$ 使 $p\nmid u_k$。则 $F$ 的 $x^k$ 系数为 $c_k=\sum_{i=0}^k u_i v_{k-i}$，其中除了 $u_kv_0$ 外，其他项全被 $p$ 整除，于是 $p\nmid c_k$，矛盾。因此 $G$ 所有系数包括首项都被 $p$ 整除，从而 $p\mid c_n=u_rv_s$，仍矛盾。
+\end{whybox}
+
+这是一条严格的反证路线：\emph{若可分解，常数项的素因子分布迫使某因式所有系数被 $p$ 整除；最终首项也被整除，与题设矛盾。}
+
+\subsection{倒序：为什么有时把 $x$ 换成 $1/x$？}
+对于 $n$ 次、首尾系数非零的多项式，定义倒序
+\[
+F^*(x)=x^nF(1/x).
+\]
+它只是把系数从尾到头倒过来。若 $F=GH$，则 $F^*=G^*H^*$；又因首尾系数都不为零，因式倒序后次数不变。因此 $F$ 与 $F^*$ 的可约性相同。\textbf{动机是把原多项式“干净”的常数项移动到最高次项，让艾森斯坦能用。}
+
+\begin{trapbox}
+艾森斯坦判别法是\textbf{充分条件}，不满足判别条件不代表多项式可约。优先尝试原式、变量平移或倒序，但每种变换都要证明保留可约性。
+\end{trapbox}
+
+\section{五道黑板题：观察 → 为什么 → 证明}
+\subsection{例题 1：为什么倒过来就能证明不可约？}
+\begin{questionbox}[黑板例题 1]
+设 $p$ 为素数，证明
+\[
+f(x)=px^4+2px^2-px+(3p+1)
+\]
+在有理数域 $\mathbb Q$ 上不可约。
+\end{questionbox}
+
+\stephead{第 1 步：先观察。} 原式除常数项外的所有系数均被 $p$ 整除，但艾森斯坦要求首项不可被 $p$ 整除。所以直接判别不成功。
+
+\stephead{第 2 步：想逆转条件。} 原式常数项是 $3p+1$，不被 $p$ 整除；首项是 $p$，恰好能被 $p$ 而不能被 $p^2$ 整除。于是想到倒序。
+
+\begin{trybox}
+暂时不看后文：写出 $x^4f(1/x)$，不要漏掉 $x^3$ 的零系数。
+\end{trybox}
+
+\stephead{第 3 步：倒序并逐项检查。}
+\[
+\begin{aligned}
+g(x)&=x^4f(1/x)\\
+&=(3p+1)x^4-px^3+2px^2+p.
+\end{aligned}
+\]
+检查 $p\nmid(3p+1)$，其余非首项系数 $-p,2p,0,p$ 均被 $p$ 整除，且 $p^2\nmid p$。根据艾森斯坦，$g$ 不可约。
+
+\stephead{第 4 步：拉回原式。} 因 $f$ 首尾系数均非零，倒序保持可约性，故 $f$ 在 $\mathbb Q$ 上不可约。\proofdone
+
+\begin{takeawaybox}
+\textbf{方法信号：}题里出现素数 $p$，系数呈现“全可整除但首项不对”的形状，就比较首尾系数，考虑倒序。不要把“不满足艾森斯坦”写成“可约”。
+\end{takeawaybox}
+
+\subsection{例题 2：为什么一个根牵出另外三个根？}
+\begin{questionbox}[黑板例题 2]
+若 $a,b,c,d\in\mathbb Q$，$ac\ne0$，$b,d>0$，$\sqrt b,\sqrt d$ 为不同类的二次无理根式（即 $\sqrt b,\sqrt d,\sqrt{bd}$ 都是无理数），且 $f\in\mathbb Q[x]$ 满足 $f(a\sqrt b+c\sqrt d)=0$，证明另外三个换符号所得的数也是 $f$ 的根。
+\end{questionbox}
+
+\stephead{第 1 步：把陌生根式拆成四种积木。} 考虑 $1,\sqrt b,\sqrt d,\sqrt{bd}$。我们先证明它们不能以有理系数互相抵消。假设
+\[
+A+B\sqrt b+C\sqrt d+D\sqrt{bd}=0
+\]
+且 $A,B,C,D\in\mathbb Q$。分组：
+\[
+(A+B\sqrt b)+(C+D\sqrt b)\sqrt d=0.
+\]
+若 $C+D\sqrt b\ne0$，则 $\sqrt d\in\mathbb Q(\sqrt b)$；这里的记号只指形如 $u+v\sqrt b$（$u,v$ 有理）的数，因为分式可用共轭相乘化为该形式。于是 $\sqrt d=u+v\sqrt b$，平方得到
+\[
+d=u^2+bv^2+2uv\sqrt b.
+\]
+由于 $\sqrt b$ 无理而两侧其他项有理，必有 $uv=0$。若 $v=0$，则 $\sqrt d=u$ 为有理数；若 $u=0$，则 $\sqrt{bd}=vb$ 为有理数；两种都与题设矛盾。故 $C+D\sqrt b=0$，从 $\sqrt b$ 无理推出 $C=D=0$，再从 $A+B\sqrt b=0$ 得 $A=B=0$。因此四种积木在有理系数下线性无关。
+
+\stephead{第 2 步：代入多项式并合并同类项。} 因 $f$ 的系数为有理数，对 $f(a\sqrt b+c\sqrt d)$ 展开并用 $(\sqrt b)^2=b$、$(\sqrt d)^2=d$ 化简，总能整理成上述四种积木之和；由题意它等于零，故 $A=B=C=D=0$。
+
+\stephead{第 3 步：改变符号为什么仍然为零？} 将 $\sqrt b\mapsto-\sqrt b$ 或 $\sqrt d\mapsto-\sqrt d$，常数系数 $A,B,C,D$ 不变，只有相应基项的符号变化。例如
+\[
+A+B\sqrt b-C\sqrt d-D\sqrt{bd}=0.
+\]
+其余两种符号组合同理成立，因此
+\[
+\boxed{a\sqrt b-c\sqrt d,\ -a\sqrt b+c\sqrt d,\ -a\sqrt b-c\sqrt d}
+\]
+均是根。\proofdone
+
+\begin{whybox}
+更深入的解释叫\textbf{共轭与数域自同构}：保留有理数不变、只改变独立根式的符号，因此有理系数多项式的零值关系被保留。但初学不必先会抽象理论，先掌握“四种积木互不混淆”的代数事实即可。
+\end{whybox}
+
+\subsection{例题 3：怎么找根式的最小多项式？}
+\begin{questionbox}[黑板例题 3]
+求一个以 $\sqrt2+\sqrt3$ 为根的有理系数\textbf{不可约}多项式。
+\end{questionbox}
+
+\stephead{第 1 步：消去根号。} 令 $t=\sqrt2+\sqrt3$，有
+\[
+ t^2=5+2\sqrt6,\qquad (t^2-5)^2=24.
+\]
+所以 $t$ 是
+\[
+\boxed{F(x)=x^4-10x^2+1}
+\]
+的根。
+
+\stephead{第 2 步：为什么不能立即结束？} 求出一个多项式，只证明 $F(t)=0$；题目还要求\emph{不可约}。我们需要排除所有有理系数因式分解。
+
+\stephead{第 3 步：用共轭根证明最低次数为四。} $t$ 的四个共轭数为 $\pm\sqrt2\pm\sqrt3$，彼此不同。任何 $f\in\mathbb Q[x]$ 若有 $t$ 为根，依据例题 2 的原理其余三个也为根，所以这样的非零多项式次数至少为四。而 $F$ 恰好是首一四次多项式，故它已经是最小次数的有理系数多项式，必不可约。\proofdone
+
+\begin{trapbox}
+$F(t)=0$ \textbf{不等于} $F$ 不可约。比如 $(x^2-2)(x^2-3)$ 也能让 $\sqrt2$ 代入得到 $0$，但它明显能分解。
+\end{trapbox}
+
+\subsection{例题 4：假设有理，为何立刻会撞墙？}
+\begin{questionbox}[黑板例题 4]
+证明 $\alpha=1+\sqrt[3]2+\sqrt[3]4$ 是无理数。
+\end{questionbox}
+
+\stephead{第 1 步：反设结论错误。} 假设 $\alpha\in\mathbb Q$。记 $u=\sqrt[3]2$，$r=\alpha-1$，则 $r\in\mathbb Q$，$r=u+u^2$。
+
+\stephead{第 2 步：目标是把无理数 $u$ 表示成有理数的比。} 从 $u^2=r-u$ 出发，乘 $u$：
+\[
+2=u^3=ru-u^2=ru-(r-u)=(r+1)u-r.
+\]
+因此 $(r+1)u=r+2$。因 $r=u+u^2>0$，$r+1\ne0$，从而
+\[
+u=\frac{r+2}{r+1}\in\mathbb Q.
+\]
+但 $\sqrt[3]2$ 是无理数：若它为最简分数 $m/n$，则 $m^3=2n^3$ 迫使 $m$、$n$ 同为偶数，矛盾。因此原假设不成立，$\alpha$ 是无理数。\proofdone
+
+\begin{whybox}
+核心不是“两个无理数之和无理”——这是假命题，例如 $\sqrt2+(-\sqrt2)=0$。这里的成功点是\textbf{两个根号来自同一个 $u$，且 $u^3=2$，能代数消元}。
+\end{whybox}
+
+\subsection{例题 5：造一个“根太多”的矛盾}
+\begin{questionbox}[黑板例题 5]
+设 $a_1,\ldots,a_n$ 是 $n$ 个互异整数，且 $n$ 为奇数。证明
+\[
+f(x)=\prod_{i=1}^n(x-a_i)+1
+\]
+在 $\mathbb Q$ 上不可约。
+\end{questionbox}
+
+\stephead{第 1 步：观察整数点取值。} 任取 $i$，有 $f(a_i)=1$。这比一般系数信息强得多，因为整系数因式在整数点仍取整数值。
+
+\stephead{第 2 步：反设可约并使用高斯引理。} 由于 $f$ 首一且为整系数，若它在 $\mathbb Q$ 上可约，可写成 $f=gh$，其中 $g,h\in\mathbb Z[x]$ 为正次数首一多项式。记较低次数者为 $g$，$\deg g=m\le(n-1)/2$（这里正是\textbf{奇数}的作用）。
+
+\stephead{第 3 步：利用特殊值逼出 $\pm1$。} 对每个 $i$，
+\[
+g(a_i)h(a_i)=f(a_i)=1.
+\]
+两因子为整数，所以 $g(a_i)=\pm1$，于是 $g(a_i)^2-1=0$。
+
+\stephead{第 4 步：比较根数与次数。} 定义 $G(x)=g(x)^2-1$。因为 $\deg g=m\ge1$，$G$ 为非零多项式且 $\deg G=2m\le n-1$。但 $G$ 却有 $n$ 个互异整数根 $a_1,\ldots,a_n$，与根数定理矛盾。因此 $f$ 不可约。\proofdone
+
+\begin{takeawaybox}
+看见“\textbf{互异整数 $a_i$}”和“\textbf{代入恰好等于 $1$}”，就想到：若整系数因式分解，则取值只能为 $\pm1$；构造 $g^2-1$，让低次多项式出现太多根。
+\end{takeawaybox}
+
+\section{判题路线图：碰到新题先看什么}
+\begin{enumerate}
+\item \textbf{题里有素数和大量整除条件？} 先试艾森斯坦；首尾位置不合适，试倒序，但检查首尾系数非零。
+\item \textbf{题里有几个根式的和？} 先平方或用共轭根消元；求最小多项式时还必须另外证不可约。
+\item \textbf{题要证某个根式无理？} 反设有理，寻找一个已知无理根式能否被理性表达式解出来。
+\item \textbf{题里有互异整数点且函数值为 $\pm1$？} 试整系数分解，构造根数超出次数的多项式。
+\end{enumerate}
+
+\section{分层自测：请先不看答案}
+\subsection{A：看懂条件}
+\begin{enumerate}[label=\textbf{A\arabic*.}]
+\item 在 $\mathbb Q$ 上，$x^2-4$ 与 $x^2-2$ 哪个可约？为什么？
+\item $x^4+3x^2+2$ 没有有理根，能证明不可约吗？请给出因式。
+\item 列出 $x^3+6x+3$ 用素数 $3$ 做艾森斯坦判别的每个条件。
+\end{enumerate}
+\subsection{B：模仿一条证明路线}
+\begin{enumerate}[label=\textbf{B\arabic*.}]
+\item 证明 $5x^3+10x+16$ 在 $\mathbb Q$ 上不可约（提示：倒序）。
+\item 求以 $\sqrt2+\sqrt5$ 为根的一个有理系数不可约多项式。
+\item 证明 $1+\sqrt[3]3+\sqrt[3]9$ 为无理数。
+\end{enumerate}
+\subsection{C：换条件会发生什么？}
+\begin{enumerate}[label=\textbf{C\arabic*.}]
+\item 为什么第 5 题若 $n$ 改为偶数，刚才的次数矛盾法就不够了？
+\item 例题 2 若改为 $\sqrt2$ 与 $\sqrt8$，还能得到四个不同的共轭根吗？
+\end{enumerate}
+
+\section{答案：每题回到最初原理}
+\stephead{A1.} $x^2-4=(x-2)(x+2)$ 可约；$x^2-2$ 若能拆为两个有理一次因式就有有理根 $\pm\sqrt2$，但它们无理，故不可约。
+
+\stephead{A2.} 不能；$(x^2+1)(x^2+2)$ 就是非平凡因式分解。无有理根只排除一次因式。
+
+\stephead{A3.} $3\nmid1$（首项）；$3\mid0,6,3$（其余项）；$9\nmid3$（常数），所以在 $\mathbb Q$ 上不可约。
+
+\stephead{B1.} 倒序为 $16x^3+10x^2+5$。取素数 $5$，首项 $16$ 不被 $5$ 整除，其他系数 $10,0,5$ 被整除，而 $25\nmid5$，故倒序式不可约；原式首尾系数均非零，故原式不可约。
+
+\stephead{B2.} $t^2=7+2\sqrt{10}$，故 $(t^2-7)^2=40$，得到 $x^4-14x^2+9$。四个符号组合 $\pm\sqrt2\pm\sqrt5$ 不同，且任何有理系数多项式有其中一个为根时都必须有其余三个为根，因此最低次数为四，所得多项式不可约。
+
+\stephead{B3.} 设 $u=\sqrt[3]3$，反设 $r=u+u^2\in\mathbb Q$。由 $u^2=r-u$，得 $3=u^3=(r+1)u-r$，所以 $u=(r+3)/(r+1)\in\mathbb Q$；但 $\sqrt[3]3$ 无理（用最简分数与素数 $3$ 的整除性证明），矛盾。
+
+\stephead{C1.} 若 $n$ 偶，较低因式可能恰有 $m=n/2$，此时 $\deg(g^2-1)=n$，允许 $n$ 个不同根，无法产生矛盾；该方法不能直接证明一般偶数情形。
+
+\stephead{C2.} 不行。$\sqrt8=2\sqrt2$，二者不是独立根式，$a\sqrt2+c\sqrt8=(a+2c)\sqrt2$，通常只有两个共轭数。\emph{缺少的恰是“非同类根式”的条件。}
+
+\section{一页回顾：我真的学会了吗？}
+\begin{takeawaybox}
+闭卷解释下面三句话：\par
+1. 艾森斯坦是在\textbf{假设可约}后，用某个素数在各系数上的整除性制造矛盾。\par
+2. 构造出 $F(\alpha)=0$ 还\textbf{不等于}找到最小多项式；还要排除低次数可能。\par
+3. 整数点取值为 $1$ 能让整系数因式的取值只能是 $\pm1$；于是 $g^2-1$ 产生过多根。
+\end{takeawaybox}
+
+真正的学习目标不是背下五个答案，而是在没看过的题里认出相同的结构，并解释每一步“为什么必须这样”。
+\end{document}

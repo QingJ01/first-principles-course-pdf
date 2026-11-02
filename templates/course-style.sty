@@ -1,0 +1,135 @@
+% First Principles Course PDF -- locked visual system (v1.0)
+% XeLaTeX + ctex; font files are NOT bundled. MIT License.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{course-style}[2026/10/22 First principles course design system]
+\RequirePackage{fontspec}
+\RequirePackage{xeCJK}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage{graphicx,geometry,xcolor,tikz}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{booktabs,array,enumitem}
+\RequirePackage{fancyhdr,titlesec}
+\RequirePackage{hyperref}
+\RequirePackage{setspace}
+\usetikzlibrary{calc,arrows.meta}
+
+% ---- Fonts: require these widely available Noto CJK faces. ----
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setmainfont{Liberation Serif}
+\setsansfont{Liberation Sans}
+\setmonofont{Liberation Mono}
+
+% ---- Reproduce the 26-page guide's visual language. ----
+\definecolor{CourseNavy}{HTML}{193B54}
+\definecolor{CourseTeal}{HTML}{167F87}
+\definecolor{CourseAmber}{HTML}{B9873C}
+\definecolor{CourseSoftAmber}{HTML}{FFF6E6}
+\definecolor{CourseSoftBlue}{HTML}{F0F6F8}
+\definecolor{CourseBorder}{HTML}{C9DEE3}
+\definecolor{CourseInk}{HTML}{28313B}
+\definecolor{CourseMuted}{HTML}{5B6876}
+\color{CourseInk}
+\geometry{a4paper,left=1.95cm,right=1.95cm,top=1.95cm,bottom=2.15cm,headheight=17pt,headsep=10pt,footskip=1.1cm}
+\setstretch{1.28}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.38em}
+\emergencystretch=2em
+\setlist[itemize]{leftmargin=2em,itemsep=0.16em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=2em,itemsep=0.2em,topsep=0.3em}
+\setlength{\abovedisplayskip}{0.7em}
+\setlength{\belowdisplayskip}{0.7em}
+\setlength{\abovedisplayshortskip}{0.4em}
+\setlength{\belowdisplayshortskip}{0.5em}
+
+% ---- Changeable text, unchangeable geometry and palette ----
+\newcommand{\CourseSubject}{学科课程}
+\newcommand{\CourseTopic}{章节专题}
+\newcommand{\CourseEyebrow}{数学基础重建・系统课程讲义}
+\newcommand{\CourseTitleTop}{从第一性原理学会}
+\newcommand{\CourseTitleBottom}{这一章的核心知识}
+\newcommand{\CourseSubtitle}{从“完全不会”到能独立解决典型题}
+\newcommand{\CourseRouteA}{直觉与\基础}
+\newcommand{\CourseRouteB}{定义与\推导}
+\newcommand{\CourseRouteC}{例题与\迁移}
+\newcommand{\CoursePromise}{\textbf{这份讲义有三项承诺：}不把定理当魔法；每一步都说清楚“为什么”；例题后有独立练习和详解。}
+\newcommand{\CourseFooter}{关键概念・第一性原理推导・错误辨析・分层自测}
+\newcommand{\CourseEdition}{学习版 · 2026 年}
+
+\titleformat{\section}[hang]{\color{CourseTeal}\sffamily\bfseries\Large}{\thesection}{0.75em}{}
+\titleformat{\subsection}[hang]{\color{CourseTeal}\sffamily\bfseries\large}{\thesubsection}{0.58em}{}
+\titleformat{\subsubsection}[hang]{\color{CourseNavy}\sffamily\bfseries\normalsize}{\thesubsubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.8em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.55em}
+\titlespacing*{\subsubsection}{0pt}{0.85em}{0.3em}
+\hypersetup{colorlinks=true,linkcolor=CourseTeal,urlcolor=CourseTeal,bookmarksnumbered=true}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\color{CourseNavy}\CourseSubject\,・从零开始}
+\fancyhead[R]{\footnotesize\sffamily\color{CourseTeal}\CourseTopic}
+\fancyfoot[C]{\footnotesize\color{CourseMuted}\thepage}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{CourseMuted}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrulewidth}{0pt}
+
+% ---- Cover: overlay graphics are aligned to absolute A4 positions. ----
+\newcommand{\CourseCover}{%
+\begin{titlepage}\thispagestyle{empty}\noindent
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[CourseNavy] (current page.north west) rectangle ([yshift=-12.05cm]current page.north east);
+  \draw[white,opacity=.15,line width=.8pt] ([xshift=12.7cm,yshift=-2.5cm]current page.north west) circle (5.15cm);
+  \draw[white,opacity=.12,line width=.8pt] ([xshift=12.7cm,yshift=-2.5cm]current page.north west) circle (5.95cm);
+  \fill[CourseTeal] ([xshift=18.55cm,yshift=-8.25cm]current page.north west) circle (4.25cm);
+  \fill[orange!80!CourseAmber] ([xshift=18.2cm,yshift=-7.1cm]current page.north west) circle (.38cm);
+  \node[anchor=north west,text width=15.5cm,align=left] at ([xshift=2.8cm,yshift=-2.25cm]current page.north west) {\color{white}\sffamily\large\CourseEyebrow};
+  \node[anchor=north west,text width=14.1cm,align=left,inner sep=0pt] at ([xshift=4.2cm,yshift=-6.6cm]current page.north west) {\color{white}\sffamily\bfseries\fontsize{29}{36}\selectfont \CourseTitleTop\\[.1em]\CourseTitleBottom};
+  \node[anchor=north west,text width=14.5cm,align=left] at ([xshift=2.8cm,yshift=-10.4cm]current page.north west) {\color{white}\sffamily\large\CourseSubtitle};
+  % The three-step curriculum route, printed on every cover.
+  \node[draw=CourseBorder,rounded corners=2pt,fill=CourseSoftBlue,minimum width=3.1cm,minimum height=1.28cm,align=center,font=\sffamily\normalsize] (c1) at ([xshift=7.7cm,yshift=-15.55cm]current page.north west) {\CourseRouteA};
+  \node[draw=CourseBorder,rounded corners=2pt,fill=CourseSoftBlue,minimum width=3.1cm,minimum height=1.28cm,align=center,font=\sffamily\normalsize] (c2) at ([xshift=11.45cm,yshift=-15.55cm]current page.north west) {\CourseRouteB};
+  \node[draw=CourseBorder,rounded corners=2pt,fill=CourseSoftBlue,minimum width=3.1cm,minimum height=1.28cm,align=center,font=\sffamily\normalsize] (c3) at ([xshift=15.2cm,yshift=-15.55cm]current page.north west) {\CourseRouteC};
+  \draw[-{Latex[length=2.3mm]},CourseTeal,line width=.9pt] (c1.east) -- (c2.west);
+  \draw[-{Latex[length=2.3mm]},CourseTeal,line width=.9pt] (c2.east) -- (c3.west);
+  \node[draw=CourseBorder,rounded corners=7pt,fill=CourseSoftBlue,text width=16cm,inner xsep=0.36cm,inner ysep=0.36cm,anchor=north west,align=left] at ([xshift=2cm,yshift=-18.2cm]current page.north west) {\CoursePromise};
+  \node[anchor=north west,text width=16.2cm,align=left] at ([xshift=2cm,yshift=-26.65cm]current page.north west) {\color{CourseNavy}\sffamily\large\CourseFooter\\[.35em]{\small\normalfont\color{CourseMuted}\CourseEdition}};
+\end{tikzpicture}
+\null\end{titlepage}\clearpage
+}
+
+% ---- Reusable content components with fixed visual tokens. ----
+\newtcolorbox{questionbox}[1][黑板题 / 章节例题]{
+  enhanced,breakable,colback=white,colframe=CourseTeal,boxrule=.72pt,
+  arc=2mm,title={#1},colbacktitle=CourseTeal,coltitle=white,
+  fonttitle=\sffamily\bfseries,top=2mm,bottom=2.5mm,left=3mm,right=3mm,
+  before skip=0.8em,after skip=0.85em
+}
+\newtcolorbox{whybox}[1][为什么这样做？]{
+  enhanced,breakable,colback=CourseSoftBlue,colframe=CourseBorder,boxrule=.5pt,
+  arc=2mm,title={#1},colbacktitle=CourseNavy,coltitle=white,
+  fonttitle=\sffamily\bfseries,top=2mm,bottom=2mm,left=3mm,right=3mm,
+  before skip=0.8em,after skip=0.85em
+}
+\newtcolorbox{takeawaybox}[1][抓住这一点]{
+  enhanced,breakable,colback=CourseSoftAmber,colframe=CourseAmber,boxrule=.65pt,
+  arc=2mm,title={#1},colbacktitle=CourseAmber,coltitle=white,
+  fonttitle=\sffamily\bfseries,top=2mm,bottom=2mm,left=3mm,right=3mm,
+  before skip=0.8em,after skip=0.85em
+}
+\newtcolorbox{trybox}[1][暂停 30 秒：自己试试]{
+  enhanced,breakable,colback=CourseSoftBlue,colframe=CourseBorder,boxrule=.55pt,
+  arc=2mm,title={#1},colbacktitle=CourseTeal,coltitle=white,
+  fonttitle=\sffamily\bfseries,top=2mm,bottom=2mm,left=3mm,right=3mm,
+  before skip=0.8em,after skip=0.85em
+}
+\newtcolorbox{trapbox}[1][常见错误]{
+  enhanced,breakable,colback=CourseSoftAmber,colframe=CourseAmber,boxrule=.6pt,
+  arc=2mm,title={#1},colbacktitle=CourseAmber,coltitle=white,
+  fonttitle=\sffamily\bfseries,top=2mm,bottom=2mm,left=3mm,right=3mm,
+  before skip=0.8em,after skip=0.85em
+}
+\newcommand{\stephead}[1]{\par\medskip\noindent{\bfseries\color{CourseNavy}#1}\enspace}
+\newcommand{\teacherhint}[1]{\textcolor{CourseMuted}{\small\sffamily 提示：#1}}
+\newcommand{\proofdone}{\hfill\ensuremath{\square}}
+\newcommand{\learninggoal}[1]{\begin{takeawaybox}[学完这一部分，你应该能]\noindent #1\end{takeawaybox}}
+\endinput
